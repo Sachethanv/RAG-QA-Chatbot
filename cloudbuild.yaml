@@ -1,0 +1,50 @@
+# cloudbuild.yaml
+steps:
+# 1. Build the Docker image
+- name: 'gcr.io/cloud-builders/docker'
+  id: Build-Image
+  args:
+    [
+      'build',
+      '-t',
+      'gcr.io/$PROJECT_ID/pdf-summarizer-ai:$COMMIT_SHA',
+      '.',
+    ]
+
+# 2. Push the Docker image to Google Container Registry (GCR)
+- name: 'gcr.io/cloud-builders/docker'
+  id: Push-Image
+  args: ['push', 'gcr.io/$PROJECT_ID/pdf-summarizer-ai:$COMMIT_SHA']
+
+# ----------------------------------------------------------------------
+# Configuration to fix the "Failed to trigger build" error
+# ----------------------------------------------------------------------
+serviceAccount: 'projects/$PROJECT_ID/serviceAccounts/your-custom-sa@$PROJECT_ID.iam.gserviceaccount.com'
+options:
+  # Using CLOUD_LOGGING_ONLY bypasses the need for a separate logs_bucket
+  logging: CLOUD_LOGGING_ONLY
+
+# ----------------------------------------------------------------------
+# Optional: Define the images to be created for tracking in the console
+# ----------------------------------------------------------------------
+images:
+  - 'gcr.io/$PROJECT_ID/pdf-summarizer-ai:$COMMIT_SHA'
+
+# ----------------------------------------------------------------------
+# Optional: Deploy to Cloud Run after a successful build
+# ----------------------------------------------------------------------
+# - name: 'gcr.io/cloud-builders/gcloud'
+#   id: Deploy-to-Cloud-Run
+#   args:
+#     [
+#       'run',
+#       'deploy',
+#       'pdf-summarizer-ai',  # Cloud Run Service Name
+#       '--image',
+#       'gcr.io/$PROJECT_ID/pdf-summarizer-ai:$COMMIT_SHA',
+#       '--region',
+#       'us-central1',  # CHANGE THIS to your desired region
+#       '--platform',
+#       'managed',
+#       '--allow-unauthenticated' # Use '--no-allow-unauthenticated' for private services
+#     ]
