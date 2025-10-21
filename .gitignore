@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+*.DS_Store
+Thumbs.db
+
+# Builds
+build/
+dist/
+*.egg-info/
+
+# Secrets
+*.json
+*.key
+*.pem
+*.crt
+*.env
+gemini_api_key.txt
+pdf-summarizer-sa.json
+
+# Logs
+logs/
+*.log
+

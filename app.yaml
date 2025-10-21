@@ -1,0 +1,10 @@
+runtime: python310 # Specify the Python version you are using
+entrypoint: gunicorn -w 4 -t 60 --bind :$PORT app:app
+
+instance_class: F2 # Or F4 for heavier tasks, F1 for lighter. F2 is a good start.
+
+env_variables:
+  # App Engine automatically secures these variables
+  # WARNING: Do NOT include GOOGLE_API_KEY here.
+  # We will use the service account permissions instead.
+  # This section can be left empty for now.
