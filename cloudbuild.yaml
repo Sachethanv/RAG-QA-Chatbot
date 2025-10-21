@@ -17,15 +17,16 @@ steps:
   args: ['push', 'gcr.io/$PROJECT_ID/pdf-summarizer-ai:$COMMIT_SHA']
 
 # ----------------------------------------------------------------------
-# Configuration to fix the "Failed to trigger build" error
+# FIX for the "Failed to trigger build" error
 # ----------------------------------------------------------------------
-serviceAccount: 'projects/$PROJECT_ID/serviceAccounts/your-custom-sa@$PROJECT_ID.iam.gserviceaccount.com'
+# Using your provided custom service account email:
+serviceAccount: 'projects/${_PROJECT_ID}/serviceAccounts/pdf-summarizer-sa@diesel-practice-470815-u1.iam.gserviceaccount.com'
 options:
-  # Using CLOUD_LOGGING_ONLY bypasses the need for a separate logs_bucket
+  # This tells Cloud Build to send logs to Cloud Logging only, satisfying the requirement
   logging: CLOUD_LOGGING_ONLY
 
 # ----------------------------------------------------------------------
-# Optional: Define the images to be created for tracking in the console
+# Define the images to be created for tracking in the console
 # ----------------------------------------------------------------------
 images:
   - 'gcr.io/$PROJECT_ID/pdf-summarizer-ai:$COMMIT_SHA'
@@ -33,18 +34,19 @@ images:
 # ----------------------------------------------------------------------
 # Optional: Deploy to Cloud Run after a successful build
 # ----------------------------------------------------------------------
+# Uncomment and customize the following section to enable automatic deployment.
 # - name: 'gcr.io/cloud-builders/gcloud'
 #   id: Deploy-to-Cloud-Run
 #   args:
 #     [
 #       'run',
 #       'deploy',
-#       'pdf-summarizer-ai',  # Cloud Run Service Name
+#       'pdf-summarizer-ai',
 #       '--image',
 #       'gcr.io/$PROJECT_ID/pdf-summarizer-ai:$COMMIT_SHA',
 #       '--region',
-#       'us-central1',  # CHANGE THIS to your desired region
+#       'us-central1',  # ⬅️ IMPORTANT: Change this to your desired region!
 #       '--platform',
 #       'managed',
-#       '--allow-unauthenticated' # Use '--no-allow-unauthenticated' for private services
+#       '--allow-unauthenticated' # Use '--no-allow-unauthenticated' for a private service
 #     ]
