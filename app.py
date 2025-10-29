@@ -12,7 +12,7 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.chains import LLMChain
 
 import os
-
+#get gemini credentials and store as envinronment variable here
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 
 
