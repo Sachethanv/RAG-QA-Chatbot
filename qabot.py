@@ -1,3 +1,5 @@
+#QABOT.py is only for local running on pythons streamlit library, not recommended for scaling
+
 import streamlit as st
 import google.generativeai as genai
 from langchain_google_genai import ChatGoogleGenerativeAI, GoogleGenerativeAIEmbeddings
