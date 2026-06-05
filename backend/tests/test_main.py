@@ -53,11 +53,15 @@ def test_log_telemetry():
             "calories_consumed": 2500,
             "calories_burned_active": 500,
             "workout_completed": 1,
+            "complexity": 2,
+            "is_milestone": 0,
             "bottlenecks": {"fatigue": False}
         }
     )
     assert response.status_code == 200
-    assert response.json()["steps_walked"] == 10000
+    data = response.json()
+    assert data["steps_walked"] == 10000
+    assert data["complexity"] == 2
 
 def test_ai_trigger():
     # Log 3 failures

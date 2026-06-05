@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Switch } from 'react-native';
 import { COLORS, TYPOGRAPHY } from '../theme/theme';
+import { useCelebration } from '../context/CelebrationContext';
 // Note: native health hooks would require specific native setup, mocking for this boilerplate
 // import AppleHealthKit from 'react-native-health';
 
 const TelemetrySync = () => {
+  const { triggerCelebration } = useCelebration();
   const [steps, setSteps] = useState(8432);
   const [calories, setCalories] = useState(2100);
   const [water, setWater] = useState(1.5);
@@ -58,7 +60,10 @@ const TelemetrySync = () => {
           </View>
       </View>
 
-      <TouchableOpacity style={styles.submitButton}>
+      <TouchableOpacity
+        style={styles.submitButton}
+        onPress={() => triggerCelebration(2)}
+      >
         <Text style={styles.submitText}>LOCK IN TODAY'S METRICS</Text>
       </TouchableOpacity>
     </ScrollView>

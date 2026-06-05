@@ -8,11 +8,14 @@ import { LayoutDashboard, Dumbbell, Activity } from 'lucide-react-native';
 import Dashboard from './src/screens/Dashboard';
 import WorkoutArena from './src/screens/WorkoutArena';
 import TelemetrySync from './src/screens/TelemetrySync';
+import { CelebrationProvider } from './src/context/CelebrationContext';
+import CelebrationOverlay from './src/components/CelebrationOverlay';
 
 const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
+    <CelebrationProvider>
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={{
@@ -40,5 +43,7 @@ export default function App() {
         />
       </Tab.Navigator>
     </NavigationContainer>
+    <CelebrationOverlay />
+    </CelebrationProvider>
   );
 }

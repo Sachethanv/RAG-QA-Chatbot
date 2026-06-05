@@ -24,6 +24,8 @@ class DailyTelemetryLogBase(BaseModel):
     calories_consumed: float
     calories_burned_active: float
     workout_completed: int
+    complexity: int = 1
+    is_milestone: int = 0
     bottlenecks: Dict[str, Any]
 
 class DailyTelemetryLogCreate(DailyTelemetryLogBase):

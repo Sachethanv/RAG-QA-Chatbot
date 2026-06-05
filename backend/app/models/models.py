@@ -25,6 +25,8 @@ class DailyTelemetryLog(Base):
     calories_consumed = Column(Float)
     calories_burned_active = Column(Float)
     workout_completed = Column(Integer) # Boolean-like or count
+    complexity = Column(Integer, default=1) # 1: Daily, 2: Weekly, 3: Milestone
+    is_milestone = Column(Integer, default=0) # 0: False, 1: True
     bottlenecks = Column(JSON) # e.g., {"fatigue": true, "time_constraint": false}
 
     user = relationship("UserProfile", back_populates="telemetry_logs")
